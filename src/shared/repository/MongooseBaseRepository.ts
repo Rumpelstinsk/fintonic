@@ -17,6 +17,28 @@ export class MongooseBaseRepository<DomainEntity, CreatorParams>
     return this.toObjectDomain(result.toObject());
   }
 
+  async delete(id: string): Promise<DomainEntity | null> {
+    const result = await this.model
+      .findOneAndUpdate(
+        {
+          _id: id,
+        },
+        {
+          archived: true,
+          archivedAt: new Date(),
+        },
+        {
+          new: true,
+        },
+      )
+      .lean();
+
+    if (!result) {
+      return null;
+    }
+    return this.toObjectDomain(result);
+  }
+
   protected toObjectDomain(document: Document) {
     return new this.domainObjectKlass(this.parseObjectIds(document));
   }

@@ -29,6 +29,7 @@ export class IntegrationEnviroment {
   }
 
   async clear() {
+    await mongoose.connection.dropDatabase();
     mongoose.connection.close();
     if (this.api) await this.api.close();
   }

@@ -6,6 +6,7 @@ export class ProductFactory {
     return {
       _id: IdGenerator.generate(),
       name: 'a-product-name',
+      archived: false,
       ...params,
     };
   }

@@ -8,6 +8,8 @@ export const ProductSchema: Schema = new Schema(
   {
     name: { required: true, type: String },
     description: { type: String },
+    archived: { type: Boolean, default: false, index: true },
+    archivedAt: { type: Date },
   },
   {
     timestamps: true,
