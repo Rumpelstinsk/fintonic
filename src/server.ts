@@ -3,6 +3,17 @@ import bodyParser from 'body-parser';
 import { config } from './config';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { container } from './inversify.dependencies';
+import mongoose from 'mongoose';
+
+// DATABASE
+mongoose
+  .connect(config.db.connectionString, config.db.options)
+  .then(() => {
+    console.log('Connected to mongo');
+  })
+  .catch(() => {
+    console.error('Unable to conect to mongo');
+  });
 
 const router = express();
 const server = new InversifyExpressServer(container, null, { rootPath: '/' }, router);
