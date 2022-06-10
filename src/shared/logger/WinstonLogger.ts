@@ -1,5 +1,7 @@
+import { injectable } from 'inversify';
 import { Logger } from './Logger';
 
+@injectable()
 export class WinstonLogger implements Logger {
   debug(message: string, metadata?: Record<string, unknown>): void {
     console.debug({
@@ -15,9 +17,9 @@ export class WinstonLogger implements Logger {
     });
   }
 
-  error(message: string, metadata?: Record<string, unknown>): void {
+  error(error: unknown, metadata?: Record<string, unknown>): void {
     console.error({
-      message,
+      error,
       ...(metadata && { metadata }),
     });
   }
