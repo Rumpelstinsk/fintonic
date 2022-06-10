@@ -15,7 +15,7 @@ describe('ProductMongooseRepository', () => {
   });
 
   afterAll(async () => {
-    await enviroment.clear();
+    await enviroment.tearDown();
   });
 
   describe('create', () => {
@@ -45,6 +45,25 @@ describe('ProductMongooseRepository', () => {
       expect(result?._id).toEqual(params._id);
       expect(result?.archived).toBeTruthy();
       expect(product.archived).toBeFalsy();
+    });
+  });
+
+  describe('findAll', () => {
+    it('returns all elements sorted by creation date descending', async () => {
+      const oldestProduct = await repository.create(ProductFactory.params());
+      const newestProduct = await repository.create(ProductFactory.params());
+
+      const result = await repository.findAll();
+
+      expect(result).toHaveLength(2);
+      expect(result[0]._id).toEqual(newestProduct._id);
+      expect(result[1]._id).toEqual(oldestProduct._id);
+    });
+
+    it('returns an empty array if there is no elements', async () => {
+      const result = await repository.findAll();
+
+      expect(result).toEqual([]);
     });
   });
 });

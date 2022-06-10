@@ -25,11 +25,16 @@ export class IntegrationEnviroment {
     const db = await this.initDB();
     const client = await this.initClient();
     await this.initAPI();
+    await this.clearDB();
     return { client, db };
   }
 
-  async clear() {
+  async clearDB() {
     await mongoose.connection.dropDatabase();
+  }
+
+  async tearDown() {
+    await this.clearDB();
     mongoose.connection.close();
     if (this.api) await this.api.close();
   }

@@ -1,4 +1,6 @@
 import { BaseRepository } from '@shared/repository';
 import { Product, ProductCreateParams } from '../entities';
 
-export type ProductsRepository = BaseRepository<Product, ProductCreateParams>;
+export interface ProductsRepository extends BaseRepository<Product, ProductCreateParams> {
+  findAll: () => Promise<Product[]>;
+}

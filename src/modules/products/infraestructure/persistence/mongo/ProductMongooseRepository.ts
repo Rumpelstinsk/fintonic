@@ -11,4 +11,11 @@ export class ProductMongooseRepository
   constructor() {
     super(Product, ProductModel);
   }
+
+  async findAll(): Promise<Product[]> {
+    const data = await this.model.find({}).sort({ _id: -1 }).lean();
+    if (!data) return [];
+
+    return data.map((product: any) => this.toObjectDomain(product));
+  }
 }
