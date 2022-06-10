@@ -21,7 +21,8 @@
   "homepage": "https://github.com/Rumpelstinsk/fintonic#readme",
   "_moduleAliases": {
     "@modules": "src/modules",
-    "@config": "src/config"
+    "@config": "src/config",
+    "@shared": "src/shared"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
