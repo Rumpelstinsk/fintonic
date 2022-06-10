@@ -5,12 +5,13 @@
     "declaration": true,
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": ".",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
+    "baseUrl": ".",
     "paths": {
-      "config": ["src/config"]
+      "@config/*": ["src/config/*"],
+      "@modules/*": ["src/modules/*"]
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -28,6 +29,6 @@
     "strictPropertyInitialization": true /* [Depends on strictBindCallApply] Enable strict checking of property initialization in classes. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/**/*.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["build", "node_modules"]
 }

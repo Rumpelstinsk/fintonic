@@ -1,9 +1,14 @@
+import 'reflect-metadata';
+import 'module-alias/register';
 import express, { NextFunction, Response } from 'express';
 import bodyParser from 'body-parser';
 import { config } from './config';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { container } from './inversify.dependencies';
+import { container, initDI } from './inversify.dependencies';
 import mongoose from 'mongoose';
+
+// Dependencies
+initDI();
 
 // DATABASE
 mongoose
@@ -11,10 +16,11 @@ mongoose
   .then(() => {
     console.log('Connected to mongo');
   })
-  .catch(() => {
-    console.error('Unable to conect to mongo');
+  .catch(error => {
+    console.error({ error });
   });
 
+// API
 const router = express();
 const server = new InversifyExpressServer(container, null, { rootPath: '/' }, router);
 
@@ -32,15 +38,6 @@ router.use((_req, res: Response, next: NextFunction) => {
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-
-// Errors
-router.use((_req, res, _next) => {
-  const error = new Error('not found');
-
-  return res.status(404).json({
-    message: error.message,
-  });
-});
 
 // Server
 const appConfigured = server.build();

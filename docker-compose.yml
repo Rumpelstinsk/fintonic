@@ -1,10 +1,13 @@
-version: '3.6'
+version: '3.7'
 services:
   mongo:
-    image: mongo:4.4.3-bionic
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ~/apps/mongo:/data/db
     ports:
       - 27017:27017
     environment:
       - MONGO_INITDB_DATABASE=fintonic
-      - MONGO_INITDB_ROOT_USERNAME=localDeveloper
-      - MONGO_INITDB_ROOT_PASSWORD=localDeveloper
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
