@@ -1,9 +1,6 @@
 import { Container } from 'inversify';
+import { MODULE_TYPES } from './constants';
 import { Logger, WinstonLogger } from './logger';
-
-export const MODULE_TYPES = {
-  Logger: 'Logger',
-} as const;
 
 export const bindToContainer = (container: Container) => {
   // Controllers

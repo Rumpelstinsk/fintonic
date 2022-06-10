@@ -11,12 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductController = void 0;
+const inversify_1 = require("inversify");
 const inversify_express_utils_1 = require("inversify-express-utils");
+const inversify_bindings_1 = require("../../inversify.bindings");
+console.log({ MODULE_TYPES: inversify_bindings_1.MODULE_TYPES });
 let ProductController = class ProductController {
+    constructor(productsRepository) {
+        this.productsRepository = productsRepository;
+    }
     list(_req, _res, _next) {
-        return 'pistachiiiin';
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.productsRepository.create({ name: 'Esto es una prueba chachi' });
+        });
     }
 };
 __decorate([
@@ -26,10 +43,12 @@ __decorate([
     __param(2, (0, inversify_express_utils_1.next)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProductController.prototype, "list", null);
 ProductController = __decorate([
-    (0, inversify_express_utils_1.controller)('/products')
+    (0, inversify_express_utils_1.controller)('/products'),
+    __param(0, (0, inversify_1.inject)(inversify_bindings_1.MODULE_TYPES.ProductsRepository)),
+    __metadata("design:paramtypes", [Object])
 ], ProductController);
 exports.ProductController = ProductController;
 //# sourceMappingURL=ProductsController.js.map

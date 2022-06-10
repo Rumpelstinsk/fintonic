@@ -12,6 +12,7 @@ const DB_NAME = process.env.DB_USERNAME ?? 'fintonic';
 const DB_USERNAME = process.env.DB_USERNAME ?? 'admin';
 const DB_PASSWORD = process.env.DB_PASSWORD ?? 'admin';
 const DB_HOST = process.env.DB_HOST ?? 'localhost:27017';
+const DB_PARAMS = ENVIROMENT === 'development' ? '?authSource=admin' : '';
 
 const DB_OPTIONS: mongoose.ConnectOptions = {
   autoIndex: false,
@@ -24,10 +25,7 @@ export const config = {
     port: SERVER_PORT,
   },
   db: {
-    connectionString:
-      ENVIROMENT === 'development'
-        ? 'mongodb://localhost:27017/dev?authSource=admin'
-        : `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+    connectionString: `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}${DB_PARAMS}`,
     options: DB_OPTIONS,
     name: DB_NAME,
     username: DB_NAME,

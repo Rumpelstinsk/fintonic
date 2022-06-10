@@ -1,3 +1,9 @@
 export declare const MODULE_TYPES: {
-    readonly ProductController: "ProductController";
+    readonly PRODUCT: {
+        readonly ProductController: "ProductController";
+        readonly ProductsRepository: "ProductsRepository";
+    };
+    readonly SHARED: {
+        readonly Logger: "Logger";
+    };
 };
