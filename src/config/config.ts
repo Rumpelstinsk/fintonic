@@ -12,7 +12,7 @@ const DB_NAME = process.env.DB_USERNAME ?? 'fintonic';
 const DB_USERNAME = process.env.DB_USERNAME ?? 'admin';
 const DB_PASSWORD = process.env.DB_PASSWORD ?? 'admin';
 const DB_HOST = process.env.DB_HOST ?? 'localhost:27017';
-const DB_PARAMS = ENVIROMENT === 'development' ? '?authSource=admin' : '';
+const DB_PARAMS = ENVIROMENT === 'development' || 'test' ? '?authSource=admin' : '';
 
 const DB_OPTIONS: mongoose.ConnectOptions = {
   autoIndex: false,

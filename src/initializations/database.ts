@@ -3,10 +3,11 @@ import { Logger } from '@shared/logger';
 import mongoose from 'mongoose';
 
 export const initDB = (logger: Logger) => {
-  mongoose
+  return mongoose
     .connect(config.db.connectionString, config.db.options)
-    .then(() => {
+    .then(db => {
       logger.info('Connected to mongo');
+      return db;
     })
     .catch(error => {
       logger.error(error);

@@ -4,7 +4,7 @@ import { Product } from '../../../domain';
 
 export const ENTITY_NAME = 'product';
 
-const ProductSchema: Schema = new Schema(
+export const ProductSchema: Schema = new Schema(
   {
     name: { required: true, type: String },
     description: { type: String },

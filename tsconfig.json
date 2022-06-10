@@ -12,7 +12,8 @@
     "paths": {
       "@config/*": ["src/config/*"],
       "@modules/*": ["src/modules/*"],
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@test/*": ["src/test/*"]
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -30,6 +31,6 @@
     "strictPropertyInitialization": true /* [Depends on strictBindCallApply] Enable strict checking of property initialization in classes. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "src/test/integration-environment.js", "jest.config.integration.js"],
   "exclude": ["build", "node_modules"]
 }
