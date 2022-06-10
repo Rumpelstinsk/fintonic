@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2016",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./build",
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "paths": {
+      "config": ["src/config"]
+    },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false /* Do not emit compiler output files like JavaScript source code, source-maps or declarations. */,
+    "isolatedModules": true /* Tells TypeScript to warn you if you write certain code that can’t be correctly interpreted by a single-file transpilation process. */,
+    "downlevelIteration": true /* Downleveling is TypeScript’s term for transpiling to an older version of JavaScript. */,
+    "strict": true /* Enable all strict type-checking options. */,
+    "strictFunctionTypes": true /* Enable strict checking of function types. */,
+    "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+    "strictBindCallApply": true /* Enable strict 'bind', 'call', and 'apply' methods on functions. */,
+    "strictNullChecks": true /* Enable strict null checks. */,
+    "strictPropertyInitialization": true /* [Depends on strictBindCallApply] Enable strict checking of property initialization in classes. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+  },
+  "exclude": ["build", "node_modules"]
+}
