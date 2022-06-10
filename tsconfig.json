@@ -28,5 +28,6 @@
     "strictPropertyInitialization": true /* [Depends on strictBindCallApply] Enable strict checking of property initialization in classes. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
+  "include": ["src/**/*.ts"],
   "exclude": ["build", "node_modules"]
 }
