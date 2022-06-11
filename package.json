@@ -11,7 +11,8 @@
     "typecheck-watch": "tsc --noEmit --watch",
     "build-watch": "tsc --watch --incremental -p tsconfig.json",
     "start": "nodemon src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watchAll"
   },
   "repository": {
     "type": "git",

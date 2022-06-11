@@ -1,5 +1,4 @@
 import { Product } from '../../../domain';
-import 'reflect-metadata';
 import { IntegrationEnviroment } from '../../../../../test/enviroments/integration-enviroment';
 import { ProductFactory } from '../../../test';
 import { ProductMongooseRepository } from './ProductMongooseRepository';

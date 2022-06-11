@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  setupFiles: ['dotenv/config'],
+  setupFiles: ['dotenv/config', './test/jest.setup.ts'],
   rootDir: './src',
   moduleNameMapper: {
     '@modules/(.*)': '<rootDir>/modules/$1',
