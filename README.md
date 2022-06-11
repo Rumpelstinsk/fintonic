@@ -35,16 +35,16 @@ Definitivamente si, aunque las herramientas de testing depende del framework en 
 - En proyectos .Net, he trabajado con la suite the NetUnit
 - En phyton con pytest y supertest
 - En NodeJs y React con jest y supertest
-- En Java con JUni
+- En Java con JUnit
 - Test E2E Cypress + Docker
 
 En cuanto al approach de testing, independientemente de las herramientas, intento hacer TDD, me baso sobretodo en la pirámide del testing y suelo seguir un enfoque de dentro a hacia afuera, porque es el que me sale más natural. Es decir, multitud de test unitarios, en menor medida de integración, sólo happy-paths o features críticas con E2E y empezando desde la abstracción más pequeña hasta la exposición del endpoint.
 
-Como nota, E2E entendido desde que pulsamos un botón en la web hasta la BD.
+Como nota, E2E entendido desde que pulsamos un botón en la web hasta la BD. Puedo resultar curioso el matiz, pero es simplemente por buscar un vocabulario común. En mi carrera, me he encontrado con desarrolladores, que por estar enfocados en un contexto concreto, por ejemplo backend, se refieren a E2E desde el endpoint hasta la base de datos, y simplemente mockean de un modo u otro las peticiones.
 
 Adicionalmente, estoy bastante acostumbrado a que la ejecución de los test esté automatizada y se tiren en CI.
 
-### ¿Cuál es la caracterísitca que más te gusta y usas de ES6 en adelante? ¿Por algún motivo?
+### ¿Cuál es la característica que más te gusta y usas de ES6 en adelante? ¿Por algún motivo?
 
 Realmente desconzco que características se introdujeron en que versión específica, por lo que no se si estoy destacando algo que se introdujo antes o después de ES6. Pero suelo optar por arrow functions en vez de standard functions. No hay un motivo en especial, simplemente siento que es un stilyng más limpio.
 
@@ -54,7 +54,7 @@ Si, llevo varios años ya utilizando git como repositorio principal de código. 
 
 ### ¿Y con terminal Unix?
 
-En este caso no mucha. Generalmente trabajo con equipos en Windows, lo poco que he tenido que trabajar con Unix ha sido cuando he tenido que modificar o crear algún pipeline en Jenkins o en el shell de la CI de github.
+En este caso, no mucha. Generalmente trabajo con equipos en Windows, lo poco que he tenido que trabajar con Unix ha sido cuando he tenido que modificar o crear algún pipeline en Jenkins o en el shell de la CI de github.
 
 ### ¿Algún sitio personal que podamos ver?
 
@@ -100,7 +100,7 @@ Creo necesario realizar algunos comentarios sobre algunos de los aspectos de la 
 - En una solución real, seguramente el endpoint para listar los productos tendría algún tipo de paginación. Pero por simplicidad de la solución he optado por no hacerlo en el challenge. Pero el approach hubiera sido incluir query params en la llamada, y tras normalizarlos y pasar por todas las capas, acabarían en el repositorio siendo parte de las llamas a los métodos `limit` y `skip`.
 - No he incluido endpoints para retrivear un producto concreto o actualizarlo, porque se especificaba en el challenge no incluir cosas extra.
 - En una aplicación real, la parte de authenticación estaría delegada en un framework de los más habituales, passport, OAuth, etc...
-- La authenticación elegida en este caso, ha sido un Barear Token al uso. No obstante, por simplicidad de la solución, simplemente se acepta cualquier string que venga en la cabecera de autenticación. Pero considero que es suficiente, para evaluar el challenge o como podría estructurarse el código en una solución real.
+- La authenticación elegida en este caso, ha sido un JWT al uso. No obstante, por simplicidad de la solución, simplemente se acepta cualquier string que venga en la cabecera de autenticación. Pero considero que es suficiente, para evaluar el challenge o como podría estructurarse el código en una solución real.
 - Respecto al logger, en una solución real, sería conveniente utilizar algún tipo de framework que mantenga el correlation-id durante todo el ciclo de vida de la petición.
 - En cuanto al approach elegido, he intentado seguir una arquitectura hexagonal. La idea es que cada módulo sea un hexágono aislado del resto.
 - Dentro de cada hexágono encontraríamos estás carpetas
@@ -111,4 +111,4 @@ Creo necesario realizar algunos comentarios sobre algunos de los aspectos de la 
   - _infraestructure_: Contiene toda la parte de interacción con elementos de fuera del contexto. Desde gestores de peticiones HTTP, preservación de información (bien en repositorios o en buckets de S3 o en...), suscriptores a eventos, ...
 - En este caso, por simplificar la solución, he optado por tener una única suite de test. Generalmente suelo separarla en test de integración y unitarios. Debido a que los test de integración requieren levantar la BD y el API antes de su ejecución así como limpiar la BD antes de la ejecución de cada test, no pueden tirarse en paralelo, porque podría interferir el cleanup.
 - En cuanto a la normalización de la respuesta, considero importante separar la definición de la entidad de dominio con el contrato que puede tener el api rest. Si bien en la mayoría de los casos pueden coincidir, no tienen por qué. Por ejemplo, en el caso de esta solución, se ha optado por un soft delete. La entidad de dominio tiene sentido que tenga el campo `archived`, quizás algún otro hexágono o un suscriptor, vaya a realizar una acción cuando se elimina un producto y necesitan esa información. No obstante, dicho campo no es expuesto al exterior, por lo que no tiene sentido que el endpoint devuelva directamente la entidad de dominio.
-- De forma adicional al punto anterior, quizás dependiendo de quien consuma el endpoint, si un miembro del staff, un usuario logeado o un usuario anonónimo, podría tener sentido que ciertas propiedades quedan ocultas. Pero está lógica de serialización debe ser independiente de la entidad de dominio. La entidad es la que es, pero la normalización dependerá del caso concreto de consumo, por lo que considero que tiene sentido que la serialización tenga su propia abstracción.
+- De forma adicional al punto anterior, quizás dependiendo de quien consuma el endpoint, si un miembro del staff, un usuario loggeado o un usuario anonónimo, podría tener sentido que ciertas propiedades quedan ocultas. Pero está lógica de serialización debe ser independiente de la entidad de dominio. La entidad es la que es, pero la normalización dependerá del caso concreto de consumo, por lo que considero que tiene sentido que la serialización tenga su propia abstracción.
