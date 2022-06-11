@@ -13,6 +13,7 @@ import {
 import { CreateProduct, DeleteProduct, ProductCreateParams, RetrieveProducts } from '../../domain';
 import { MODULE_TYPES } from '../../constants';
 import { ProductsNormalization } from './ProductsNormalization';
+import { ProductRequestValidation } from './ProductRequestValidation';
 
 @controller('/products')
 export class ProductController implements interfaces.Controller {
@@ -30,12 +31,15 @@ export class ProductController implements interfaces.Controller {
 
   @httpDelete('/:productId')
   async delete(@requestParam('productId') id: string, @response() res: Response) {
-    await this.deleteProduct.invoke({ id });
+    const params = { id };
+    ProductRequestValidation.delete(params);
+    await this.deleteProduct.invoke(params);
     res.sendStatus(204);
   }
 
   @httpPost('/')
   async create(@requestBody() payload: ProductCreateParams) {
+    ProductRequestValidation.post(payload);
     const product = await this.createProduct.invoke(payload);
     return ProductsNormalization.normalize(product);
   }

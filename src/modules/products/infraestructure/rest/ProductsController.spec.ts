@@ -70,6 +70,14 @@ describe(`${baseURL}`, () => {
 
       await response.expect(400).expect(toMatchBody);
     });
+
+    it('responses with an error if the url is malformed', async () => {
+      const testRequester = superTest(await enviroment.getAPI());
+
+      const response = testRequester.delete(`${baseURL}/wrongId}`);
+
+      await response.expect(400);
+    });
   });
 
   describe('POST', () => {
@@ -86,6 +94,15 @@ describe(`${baseURL}`, () => {
       const response = testRequester.post(baseURL).send(payload);
 
       await response.expect(200).expect(toMatchBody);
+    });
+
+    it('responses with an error if the payload is malformed', async () => {
+      const emptyPayload = {};
+      const testRequester = superTest(await enviroment.getAPI());
+
+      const response = testRequester.post(baseURL).send(emptyPayload);
+
+      await response.expect(400);
     });
   });
 });

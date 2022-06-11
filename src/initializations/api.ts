@@ -6,7 +6,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { Container } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { MODULE_TYPES } from '../constants';
-import { BusinessError } from '@shared/errors';
+import { APIValidationError, BusinessError } from '@shared/errors';
 
 export const initAPI = (container: Container) => {
   const router = express();
@@ -38,6 +38,10 @@ export const initAPI = (container: Container) => {
             code: error.code,
             message: error.message,
           });
+        }
+
+        if (APIValidationError.isAPIValidationError(error)) {
+          return res.status(400).json(error.metadata);
         }
 
         return res.status(500).json(error);
