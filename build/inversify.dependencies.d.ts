@@ -1,3 +1,0 @@
-import { Container } from 'inversify';
-export declare const container: Container;
-export declare const initDI: () => void;

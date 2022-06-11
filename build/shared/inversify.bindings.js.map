@@ -1,1 +1,0 @@
-{"version":3,"file":"inversify.bindings.js","sourceRoot":"","sources":["../../src/shared/inversify.bindings.ts"],"names":[],"mappings":";;;AACA,qCAAiD;AAEpC,QAAA,YAAY,GAAG;IAC1B,MAAM,EAAE,QAAQ;CACR,CAAC;AAEJ,MAAM,eAAe,GAAG,CAAC,SAAoB,EAAE,EAAE;IACtD,cAAc;IACd,SAAS,CAAC,IAAI,CAAS,oBAAY,CAAC,MAAM,CAAC,CAAC,EAAE,CAAC,sBAAa,CAAC,CAAC;AAChE,CAAC,CAAC;AAHW,QAAA,eAAe,mBAG1B"}
