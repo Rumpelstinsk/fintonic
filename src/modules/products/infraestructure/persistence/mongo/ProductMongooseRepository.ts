@@ -13,7 +13,12 @@ export class ProductMongooseRepository
   }
 
   async findAll(): Promise<Product[]> {
-    const data = await this.model.find({}).sort({ _id: -1 }).lean();
+    const data = await this.model
+      .find({
+        archived: false,
+      })
+      .sort({ _id: -1 })
+      .lean();
     if (!data) return [];
 
     return data.map((product: any) => this.toObjectDomain(product));

@@ -3,11 +3,13 @@ import { Product, ProductParams } from '../domain';
 
 export class ProductFactory {
   static params(params: Partial<ProductParams> = {}): ProductParams {
+    const { archived = false, archivedAt = new Date(), ...rest } = params;
     return {
       _id: IdGenerator.generate(),
       name: 'a-product-name',
-      archived: false,
-      ...params,
+      archived,
+      ...(archived && { archivedAt }),
+      ...rest,
     };
   }
 

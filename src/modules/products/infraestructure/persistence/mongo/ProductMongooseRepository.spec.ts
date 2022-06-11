@@ -60,6 +60,16 @@ describe('ProductMongooseRepository', () => {
       expect(result[1]._id).toEqual(oldestProduct._id);
     });
 
+    it('ignores deleted products', async () => {
+      await repository.create(ProductFactory.params({ archived: true }));
+      const activeProduct = await repository.create(ProductFactory.params({ archived: false }));
+
+      const result = await repository.findAll();
+
+      expect(result).toHaveLength(1);
+      expect(result[0]._id).toEqual(activeProduct._id);
+    });
+
     it('returns an empty array if there is no elements', async () => {
       const result = await repository.findAll();
 
