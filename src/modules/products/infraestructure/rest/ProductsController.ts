@@ -14,6 +14,7 @@ import { CreateProduct, DeleteProduct, ProductCreateParams, RetrieveProducts } f
 import { MODULE_TYPES } from '../../constants';
 import { ProductsNormalization } from './ProductsNormalization';
 import { ProductRequestValidation } from './ProductRequestValidation';
+import { authMiddleware } from '@shared/middlewares';
 
 @controller('/products')
 export class ProductController implements interfaces.Controller {
@@ -29,7 +30,7 @@ export class ProductController implements interfaces.Controller {
     return products.map(product => ProductsNormalization.normalize(product));
   }
 
-  @httpDelete('/:productId')
+  @httpDelete('/:productId', authMiddleware())
   async delete(@requestParam('productId') id: string, @response() res: Response) {
     const params = { id };
     ProductRequestValidation.delete(params);
@@ -37,7 +38,7 @@ export class ProductController implements interfaces.Controller {
     res.sendStatus(204);
   }
 
-  @httpPost('/')
+  @httpPost('/', authMiddleware())
   async create(@requestBody() payload: ProductCreateParams) {
     ProductRequestValidation.post(payload);
     const product = await this.createProduct.invoke(payload);

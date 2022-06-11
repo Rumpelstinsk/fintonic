@@ -48,15 +48,20 @@ describe(`${baseURL}`, () => {
 
   describe('DELETE', () => {
     it('deletes a product', async () => {
-      const { completeProduct } = await (await enviroment.getDBClient()).seedProducts();
+      const dbClient = await enviroment.getDBClient();
+      const { completeProduct } = await dbClient.seedProducts();
+      const { token } = await dbClient.seedUser();
       const testRequester = superTest(await enviroment.getAPI());
 
-      const response = testRequester.delete(`${baseURL}/${completeProduct._id}`);
+      const response = testRequester
+        .delete(`${baseURL}/${completeProduct._id}`)
+        .set('Authorization', 'bearer ' + token);
 
       await response.expect(204);
     });
 
     it('returns an error if the product does not exists', async () => {
+      const { token } = await (await enviroment.getDBClient()).seedUser();
       const testRequester = superTest(await enviroment.getAPI());
       const toMatchBody = (res: any) => {
         expect(res.body).toEqual(
@@ -66,22 +71,35 @@ describe(`${baseURL}`, () => {
         );
       };
 
-      const response = testRequester.delete(`${baseURL}/${IdGenerator.generate()}`);
+      const response = testRequester
+        .delete(`${baseURL}/${IdGenerator.generate()}`)
+        .set('Authorization', 'bearer ' + token);
 
       await response.expect(400).expect(toMatchBody);
     });
 
     it('responses with an error if the url is malformed', async () => {
+      const { token } = await (await enviroment.getDBClient()).seedUser();
       const testRequester = superTest(await enviroment.getAPI());
 
-      const response = testRequester.delete(`${baseURL}/wrongId}`);
+      const response = testRequester.delete(`${baseURL}/wrongId}`).set('Authorization', 'bearer ' + token);
 
       await response.expect(400);
+    });
+
+    it('throws an error on anonymous requests', async () => {
+      const { completeProduct } = await (await enviroment.getDBClient()).seedProducts();
+      const testRequester = superTest(await enviroment.getAPI());
+
+      const response = testRequester.delete(`${baseURL}/${completeProduct._id}`);
+
+      await response.expect(401);
     });
   });
 
   describe('POST', () => {
     it('creates a product', async () => {
+      const { token } = await (await enviroment.getDBClient()).seedUser();
       const payload = ProductFactory.createParams();
       const testRequester = superTest(await enviroment.getAPI());
       const toMatchBody = (res: any) => {
@@ -91,18 +109,34 @@ describe(`${baseURL}`, () => {
         });
       };
 
-      const response = testRequester.post(baseURL).send(payload);
+      const response = testRequester
+        .post(baseURL)
+        .set('Authorization', 'bearer ' + token)
+        .send(payload);
 
       await response.expect(200).expect(toMatchBody);
     });
 
     it('responses with an error if the payload is malformed', async () => {
+      const { token } = await (await enviroment.getDBClient()).seedUser();
       const emptyPayload = {};
       const testRequester = superTest(await enviroment.getAPI());
 
-      const response = testRequester.post(baseURL).send(emptyPayload);
+      const response = testRequester
+        .post(baseURL)
+        .set('Authorization', 'bearer ' + token)
+        .send(emptyPayload);
 
       await response.expect(400);
+    });
+
+    it('throws an error on anonymous requests', async () => {
+      const payload = ProductFactory.createParams();
+      const testRequester = superTest(await enviroment.getAPI());
+
+      const response = testRequester.post(baseURL).send(payload);
+
+      await response.expect(401);
     });
   });
 });
