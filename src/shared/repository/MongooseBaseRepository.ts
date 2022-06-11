@@ -1,13 +1,15 @@
+import { injectable, unmanaged } from 'inversify';
 import mongoose from 'mongoose';
 import { BaseRepository } from './BaseRepository';
 
+@injectable()
 export class MongooseBaseRepository<DomainEntity, CreatorParams>
   implements BaseRepository<DomainEntity, CreatorParams>
 {
   domainObjectKlass;
   model: mongoose.Model<any>;
 
-  constructor(domainObjectKlass: any, model: mongoose.Model<any>) {
+  constructor(@unmanaged() domainObjectKlass: any, @unmanaged() model: mongoose.Model<any>) {
     this.domainObjectKlass = domainObjectKlass;
     this.model = model;
   }

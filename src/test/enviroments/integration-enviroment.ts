@@ -29,6 +29,14 @@ export class IntegrationEnviroment {
     return { client, db };
   }
 
+  getAPI() {
+    return this.initAPI();
+  }
+
+  getDBClient() {
+    return this.initClient();
+  }
+
   async clearDB() {
     await mongoose.connection.dropDatabase();
   }

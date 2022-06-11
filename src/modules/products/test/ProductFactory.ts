@@ -1,7 +1,14 @@
 import { IdGenerator } from '@test/helpers';
-import { Product, ProductParams } from '../domain';
+import { Product, ProductCreateParams, ProductParams } from '../domain';
 
 export class ProductFactory {
+  static createParams(params: Partial<ProductCreateParams> = {}): ProductCreateParams {
+    return {
+      name: 'a-product-name',
+      ...params,
+    };
+  }
+
   static params(params: Partial<ProductParams> = {}): ProductParams {
     const { archived = false, archivedAt = new Date(), ...rest } = params;
     return {

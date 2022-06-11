@@ -21,12 +21,14 @@ export class DatabaseTestClient {
 
   async seedProducts() {
     const completeProduct = ProductFactory.create({ name: 'complete product', description: 'description product' });
+    const deletedProduct = ProductFactory.create({ name: 'deleted product', archived: true });
     const incompleteProduct = ProductFactory.create({ name: 'incomplete product' });
 
-    await productsContext.insertMany([completeProduct, incompleteProduct]);
+    await productsContext.insertMany([completeProduct, deletedProduct, incompleteProduct]);
 
     return {
       completeProduct,
+      deletedProduct,
       incompleteProduct,
     };
   }

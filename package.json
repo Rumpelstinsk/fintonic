@@ -45,6 +45,7 @@
     "@types/inversify": "^2.0.33",
     "@types/jest": "^28.1.1",
     "@types/mongoose": "^5.11.97",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
     "cross-env": "^7.0.3",

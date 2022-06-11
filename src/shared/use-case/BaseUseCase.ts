@@ -1,7 +1,10 @@
+import { injectable, unmanaged } from 'inversify';
+import 'reflect-metadata';
 import { Logger } from '../logger';
 
+@injectable()
 export class BaseUseCase {
-  constructor(private logger: Logger) {}
+  constructor(@unmanaged() private logger: Logger) {}
 
   protected logInvoke(params?: Record<string, any>) {
     const message = `${this.constructor.name} invoked`;
