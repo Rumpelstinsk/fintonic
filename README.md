@@ -90,7 +90,7 @@ Una vez generado una instancia de mongo (punto anterior):
   - `DELETE http://localhost:4000/products/:productId`
     - Al igual que el endpoint anterior, require authenticación.
 
-### Ejecución de la aplicación
+### Ejecución de la suite de test
 
 Una vez generado una instancia de mongo, simplemente hay que ejecutar `npm run test`
 
