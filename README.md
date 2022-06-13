@@ -34,7 +34,8 @@ Definitivamente si, aunque las herramientas de testing depende del framework en 
 
 - En proyectos .Net, he trabajado con la suite the NetUnit
 - En phyton con pytest y supertest
-- En NodeJs y React con jest y supertest
+- En NodeJs con jest y supertest
+- En React con jest y react-testing-library
 - En Java con JUnit
 - Test E2E Cypress + Docker
 
